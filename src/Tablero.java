@@ -98,6 +98,97 @@ public class Tablero {
         return false;
     }
 
+    public void moverAuto(Auto car, int orientacion) {
+        int fila = car.getPosicion()[0][0];
+        int columna = car.getPosicion()[0][1];
+
+        switch (orientacion) {
+            case 0:  // Arriba
+                for (int r = fila - 1; r >= 0; r--) {
+                    if (matriz[r][columna] != null) {
+                        matriz[r][columna] = car;
+                        matriz[fila][columna] = null;
+                        car.cambiarPosicion(r, columna);
+                        car.cambiarOrientacion(orientacion);
+                        return;
+                    }
+                }
+                break;
+
+            case 1:  // Derecha
+                for (int c = columna + 1; c < columnas; c++) {
+                    if (matriz[fila][c] != null) {
+                        matriz[fila][c] = car;
+                        matriz[fila][columna] = null;
+                        car.cambiarPosicion(fila, c);
+                        car.cambiarOrientacion(orientacion);
+                        return;
+                    }
+                }
+                break;
+
+            case 2:  // Abajo
+                for (int r = fila + 1; r < filas; r++) {
+                    if (matriz[r][columna] != null) {  //
+                        matriz[r][columna] = car;
+                        matriz[fila][columna] = null;
+                        car.cambiarPosicion(r, columna);
+                        car.cambiarOrientacion(orientacion);
+                        return;
+                    }
+                }
+                break;
+
+            case 3:  // Izquierda
+                for (int c = columna - 1; c >= 0; c--) {
+                    if (matriz[fila][c] != null) {
+                        matriz[fila][c] = car;
+                        matriz[fila][columna] = null;
+                        car.cambiarPosicion(fila, c);
+                        car.cambiarOrientacion(orientacion);
+                        return;
+                    }
+                }
+                break;
+        }
+    }
+
+    public void hacerJugada(String jugada) {
+        char filaChar = jugada.charAt(0);
+        int columna = Character.getNumericValue(jugada.charAt(1)) - 1;
+        int fila = filaChar - 'A';
+
+        if (fila < 0 || fila >= filas || columna < 0 || columna >= columnas) {
+            throw new IllegalArgumentException("Coordenadas fuera de límites.");
+        }
+
+        Auto car = matriz[fila][columna];
+        if (car == null) {
+            throw new IllegalArgumentException("No hay auto en las coordenadas especificadas.");
+        }
+
+        if (!tieneMovimientosValidos(car)) {
+            throw new IllegalStateException("El auto no tiene movimientos válidos.");
+        }
+
+        boolean moveMade = false;
+
+        int currentOrientation = car.getOrientacion();
+        for (int i = 1; i <= 4; i++) {
+            int nuevaOrientacion = (currentOrientation + i) % 4;
+            if (esMovimientoValido(car, nuevaOrientacion)) {
+                System.out.println("Moviendo auto en dirección " + nuevaOrientacion);
+                moverAuto(car, nuevaOrientacion);
+                moveMade = true;
+                break;
+            }
+        }
+
+        if (!moveMade) {
+            throw new IllegalStateException("No se pudo mover el auto en ninguna dirección.");
+        }
+    }
+
     public void mostrarTablero() {
         String[] identColumna = new String[columnas];
         for (int i = 0; i < columnas; i++) {

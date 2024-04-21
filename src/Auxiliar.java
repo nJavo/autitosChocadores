@@ -114,4 +114,9 @@ public class Auxiliar {
 
         return tablero;
     }
+
+    public static int tirarMoneda() {
+        Random random = new Random();
+        return random.nextInt(2) + 1;
+    }
 }
