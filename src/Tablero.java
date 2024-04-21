@@ -46,11 +46,33 @@ public class Tablero {
     }
 
     public void mostrarTablero() {
-        for (String[] fila : matriz) {
-            for (String celda : fila) {
-                System.out.print(celda + " ");
+        for (int fila = 0; fila < filas; fila++) {
+            System.out.print("+");
+            for (int j = 0; j < columnas; j++) {
+                System.out.print("----+");
             }
             System.out.println();
+
+            for (int row = 0; row < 4; row++) {
+                System.out.print("|");
+                for (int j = 0; j < columnas; j++) {
+                    String contenido = matriz[fila][j];
+                    if (contenido.equals(".")) {
+                        System.out.print("    |");
+                    } else {
+                        String[] lines = contenido.split("\n");
+                        String line = row < lines.length ? lines[row] : "    ";
+                        System.out.print(" " + line + " |");
+                    }
+                }
+                System.out.println();
+            }
         }
+
+        System.out.print("+");
+        for (int j = 0; j < columnas; j++) {
+            System.out.print("----+");
+        }
+        System.out.println();
     }
 }
