@@ -165,10 +165,10 @@ public class Auxiliar {
     public static void imprimirAutosConMovimientos(List<Auto> autos) {
         for (int i = 0; i < autos.size(); i++) {
             Auto car = autos.get(i);
-            int fila = car.getPosicion()[0][0];  // Get row
-            int columna = car.getPosicion()[0][1];  // Get column
-            char filaChar = (char) ('A' + fila);  // Convert row index to letter
-            String columnaStr = Integer.toString(columna + 1);  // Convert column index to 1-based number
+            int fila = car.getPosicion()[0][0];
+            int columna = car.getPosicion()[0][1];
+            char filaChar = (char) ('A' + fila);
+            String columnaStr = Integer.toString(columna + 1);
 
             System.out.println(
                 negrita + colorVerde + (i + 1) + ". " + resetColor + 
