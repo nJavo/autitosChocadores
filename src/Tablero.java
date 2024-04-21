@@ -1,23 +1,33 @@
+import java.util.Scanner;
+
 public class Tablero {
     private int filas;
     private int columnas;
     private int cantidadAutos;
     private String[][] matriz;
-    private List<Auto> listaAutos;
 
     public Tablero(int filas, int columnas, int cantidadAutos) {
         this.filas = filas;
         this.columnas = columnas;
         this.cantidadAutos = cantidadAutos;
         this.matriz = new String[filas][columnas];
-        this.listaAutos = new ArrayList<>();
+        inicializarTablero();
+    }
+
+    private void inicializarTablero() {
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                matriz[i][j] = ".";
+            }
+        }
     }
 
     public void configurarTablero() {
         Scanner scanner = new Scanner(System.in);
+        String[] colores = {"R", "A", "V", "Y", "N", "M", "C", "P"};
 
         for (int i = 0; i < cantidadAutos; i++) {
-            System.out.print("Ingresar las coordenadas y direccion del auto " + (i + 1) + " (ejemplo: A12): ");
+            System.out.print("Ingresar las coordenadas y dirección del auto " + (i + 1) + " (ejemplo: A12): ");
             String input = scanner.nextLine();
 
             char fila = input.charAt(0);
@@ -27,15 +37,12 @@ public class Tablero {
             int filaIndex = fila - 'A';
             int columnaIndex = columna - 1;
 
-            Auto auto = new Auto(fila, columna, direccion);
-            listaAutos.add(auto);
-
-            matriz[filaIndex][columnaIndex] = auto.getColor();
+            matriz[filaIndex][columnaIndex] = colores[i];
         }
     }
 
     public boolean verificarTablero() {
-        return true; // Placeholder, cambiar despues tengo que hacer la logica
+        return true; // Placeholder, cambiar después tengo que hacer la lógica
     }
 
     public void mostrarTablero() {
@@ -46,5 +53,4 @@ public class Tablero {
             System.out.println();
         }
     }
-
 }

@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Usuario {
     private String nombre;
     private int edad;
     private String alias;
 
-    public Person(String nombre, int edad, String alias) {
+    public Usuario(String nombre, int edad, String alias) {
         this.nombre = nombre;
         this.edad = edad;
         this.alias = alias;
