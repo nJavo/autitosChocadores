@@ -51,17 +51,17 @@ public class Auto {
 
         switch (orientacion) {
             case 0: // Arriba
-                autoReturn = colorAmarillo + colorRojo + "oo" + resetColor + "\n" + colorAzul + "**" + "\n" + colorAzul + "**" + "\n" + colorAzul + "**" + "\n"  + resetColor;
+                autoReturn = colorAmarillo + colorRojo + "oo" + resetColor + "\n" + colorAzul + "**" + resetColor + "\n" + colorAzul + "**" + resetColor + "\n" + colorAzul + "**" + resetColor + "\n";
                 break;
             case 1: // Derecha
                 autoReturn = colorAzul + "***" + colorAmarillo + colorRojo + "o" + resetColor + "\n"
                         + colorAzul + "***" + colorAmarillo + colorRojo + "o" + resetColor;
                 break;
             case 2: // Abajo
-                autoReturn = colorAzul + "**" + resetColor + "\n" + colorAzul + "**" + "\n" + colorAmarillo + colorRojo + "oo" + resetColor + "\n";
+                autoReturn = colorAzul + "**" + resetColor + "\n" + colorAzul + "**" + resetColor + "\n" + colorAzul + "**" + resetColor + "\n" + colorAmarillo + colorRojo + "oo" + resetColor + "\n";
                 break;
             case 3: // Izquierda
-                autoReturn = colorAmarillo + colorRojo + "o" + resetColor + colorAzul + "***" + "\n" +
+                autoReturn = colorAmarillo + colorRojo + "o" + resetColor + colorAzul + "***" + resetColor + "\n" +
                         colorAmarillo + colorRojo + "o" + resetColor + colorAzul + "***" + resetColor;
                 break;
         }
