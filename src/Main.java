@@ -1,33 +1,65 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        Tablero tablero = new Tablero(5, 5, 8);
+        Scanner scanner = new Scanner(System.in);
 
-        Auto auto1 = new Auto(1, 0, 0, 0, true);
-        Auto auto2 = new Auto(2, 0, 2, 1, true);
-        Auto auto3 = new Auto(3, 1, 1, 2, true);
-        Auto auto4 = new Auto(4, 1, 3, 3, true);
-        Auto auto5 = new Auto(5, 2, 1, 0, true);
-        Auto auto6 = new Auto(6, 3, 0, 1, true);
-        Auto auto7 = new Auto(7, 3, 3, 2, true);
-        Auto auto8 = new Auto(8, 4, 3, 3, true);
-        System.out.println(auto1.toString());
-        System.out.println("\n");
-        System.out.println(auto2.toString());
-        System.out.println("\n");
-        System.out.println(auto3.toString());
-        System.out.println("\n");
-        System.out.println(auto4.toString());
-        System.out.println("\n");
+        System.out.println("              ____----------- _____");
+        System.out.println(" \\~~~~~~~~~~/~_--~~~------~~~~~     \\");
+        System.out.println("  `---`\\  _-~      |                   \\");
+        System.out.println("    _-~  <_         |                     \\[]");
+        System.out.println("  / ___     ~~--[\"\"\"\"\"\"\" |      ________-------'_");
+        System.out.println(" > /~` \\    |-.   `\\~~.~~~~~                _ ~ - _");
+        System.out.println("  ~|  ||\\%  |       |    ~  ._                ~ _   ~ ._");
+        System.out.println("    `_//|_%  \\      |          ~  .              ~-_   /\\");
+        System.out.println("           `--__     |    _-____  /\\               ~-_ \\/.");
+        System.out.println("                ~--_ /  ,/ -~-_ \\ \\/          _______---~/");
+        System.out.println("                    ~~-/._<   \\ \\`~~~~~~~~~~~~~     ##--~/");
+        System.out.println("                          \\    ) |`------##---~~~~-~  ) )");
+        System.out.println("                           ~-_/_/                  ~~ ~~~");
 
-        tablero.matriz[0][0] = auto1;
-        tablero.matriz[0][2] = auto2;
-        tablero.matriz[1][1] = auto3;
-        tablero.matriz[1][3] = auto4;
-        tablero.matriz[2][1] = auto5;
-        tablero.matriz[3][0] = auto6;
-        tablero.matriz[3][3] = auto7;
-        tablero.matriz[4][3] = auto8;
+        System.out.println("#####################################################");
+        System.out.println("#####################################################");
+        System.out.println("########## BIENVENIDOS A AUTITOS CHOCADORES #########");
+        System.out.println("#####################################################");
+        System.out.println("#####################################################");
+        boolean estadoJuego = true;
 
-        tablero.mostrarTablero();
+        while (estadoJuego) {
+            System.out.println("Selecciona la configuración del tablero:");
+            System.out.println("1. Tablero propio");
+            System.out.println("2. Tablero al azar");
+            System.out.println("3. Tablero predeterminado");
+
+            System.out.print("Ingresa su elección (1-3): ");
+            int opcion = scanner.nextInt();
+
+            Tablero tablero = new Tablero(5, 5, 8);
+            try {
+                tablero = Auxiliar.seleccionarFuncion(opcion, tablero);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Opcion inválida, intentalo de nuevo.");
+                continue;
+            } catch (IllegalStateException e) {
+                System.out.println("El tablero no tiene movimientos validos. Volve a configurarlo.");
+                continue;
+            }
+
+            System.out.println("Configuracion del tablero:");
+            tablero.mostrarTablero();
+
+            System.out.print("Queres seguir jugando? (s/n): ");
+            char continuar = scanner.next().charAt(0);
+            if (continuar == 'n') {
+                estadoJuego = false;
+            }
+        }
+
+        System.out.println("Gracias por jugar!");
+        System.out.println("  ___");
+        System.out.println("    _-_-  _/\\______\\__");
+        System.out.println(" _-_-__  / ,-. -|-  ,-.`-.");
+        System.out.println("    _-_- `( o )----( o )-'");
+        System.out.println("           `-'      `-'");
     }
 }

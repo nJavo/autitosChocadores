@@ -4,7 +4,7 @@ public class Tablero {
     private int filas;
     private int columnas;
     private int cantidadAutos;
-    public Auto[][] matriz;
+    private Auto[][] matriz;
 
     public Tablero(int filas, int columnas, int cantidadAutos) {
         this.filas = filas;
@@ -12,6 +12,10 @@ public class Tablero {
         this.cantidadAutos = cantidadAutos;
         this.matriz = new Auto[filas][columnas];
         inicializarTablero();
+    }
+
+    public Auto[][] getMatriz() {
+        return matriz;
     }
 
     private void inicializarTablero() {
@@ -22,27 +26,76 @@ public class Tablero {
         }
     }
 
-    public void configurarTablero() {
-        Scanner scanner = new Scanner(System.in);
-        String[] colores = {"R", "A", "V", "Y", "N", "M", "C", "P"};
-
-        for (int i = 0; i < cantidadAutos; i++) {
-            System.out.print("Ingresar las coordenadas y dirección del auto " + (i + 1) + " (ejemplo: A12): ");
-            String input = scanner.nextLine();
-
-            char fila = input.charAt(0);
-            int columna = Character.getNumericValue(input.charAt(1));
-            int direccion = Character.getNumericValue(input.charAt(2));
-
-            int filaIndex = fila - 'A';
-            int columnaIndex = columna - 1;
-
-            // matriz[filaIndex][columnaIndex] = colores[i];
+    public void agregarAuto(int color, int fila, int columna, int orientacion, boolean estado) {
+        if (fila < 0 || fila >= filas || columna < 0 || columna >= columnas) {
+            throw new IllegalArgumentException("Índices de fila o columna fuera de límites");
         }
+
+        Auto auto = new Auto(color, fila, columna, orientacion, estado);
+        matriz[fila][columna] = auto;
     }
 
-    public boolean verificarTablero() {
-        return true; // Placeholder, cambiar después tengo que hacer la lógica
+    public boolean esMovimientoValido(Auto auto, int nuevaOrientacion) {
+        int filaActual = auto.getPosicion()[0][0];
+        int columnaActual = auto.getPosicion()[0][1];
+
+        switch (nuevaOrientacion) {
+            case 0:  // Arriba
+                for (int i = filaActual - 1; i >= 0; i--) {
+                    if (matriz[i][columnaActual] != null) {
+                        return true;
+                    }
+                }
+                break;
+            case 1:  // Derecha
+                for (int i = columnaActual + 1; i < columnas; i++) {
+                    if (matriz[filaActual][i] != null) {
+                        return true;
+                    }
+                }
+                break;
+            case 2:  // Abajo
+                for (int i = filaActual + 1; i < filas; i++) {
+                    if (matriz[i][columnaActual] != null) {
+                        return true;
+                    }
+                }
+                break;
+            case 3:  // Izquierda
+                for (int i = columnaActual - 1; i >= 0; i--) {
+                    if (matriz[filaActual][i] != null) {
+                        return true;
+                    }
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Orientación no válida");
+        }
+
+        return false;
+    }
+
+    public boolean tieneMovimientosValidos(Auto car) {
+        for (int orientacion = 0; orientacion < 4; orientacion++) {
+            if (esMovimientoValido(car, orientacion)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hayMovimientoValido() {
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                Auto car = matriz[i][j];
+                if (car != null) {
+                    if (tieneMovimientosValidos(car)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     public void mostrarTablero() {
