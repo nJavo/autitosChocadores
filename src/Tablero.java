@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Tablero {
     private int filas;
@@ -96,6 +98,21 @@ public class Tablero {
             }
         }
         return false;
+    }
+
+    public List<Auto> obtenerAutosConMovimientosValidos() {
+        List<Auto> autosConMovimientos = new ArrayList<>();
+
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                Auto car = matriz[i][j];
+                if (car != null && tieneMovimientosValidos(car)) {
+                    autosConMovimientos.add(car);
+                }
+            }
+        }
+
+        return autosConMovimientos;
     }
 
     public void moverAuto(Auto car, int orientacion) {

@@ -1,8 +1,18 @@
 import java.util.Random;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Auxiliar {
+
+    private static final String resetColor = "\u001B[0m";
+    private static final String negrita = "\033[1m";
+    private static final String colorRojo = "\u001B[31m";
+    private static final String colorAmarillo = "\u001B[33m";
+    private static final String colorAzul = "\u001B[34m";
+    private static final String colorVerde = "\u001B[32m";
+
     public static Tablero seleccionarFuncion(int opcion, Tablero tablero) {
         switch (opcion) {
             case 1:
@@ -33,14 +43,14 @@ public class Auxiliar {
     public static Tablero tableroAlAzar(Tablero tablero) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Ingrese las dimensiones del tablero (5, 6, o 7): ");
+        System.out.print(negrita + " - Ingrese las dimensiones del tablero (5, 6, o 7): " + resetColor + "\n");
         int dimensiones = scanner.nextInt();
         
         if (dimensiones < 5 || dimensiones > 7) {
             throw new IllegalArgumentException("Las dimensiones deben estar entre 5 y 7.");
         }
 
-        System.out.print("Ingrese la cantidad de autos (de 3 a 12): ");
+        System.out.print(negrita + " - Ingrese la cantidad de autos (de 3 a 12): " + resetColor + "\n");
         int cantAutos = scanner.nextInt();
         
         if (cantAutos < 3 || cantAutos > 12) {
@@ -52,7 +62,7 @@ public class Auxiliar {
         do {
             tablero = new Tablero(dimensiones, dimensiones, cantAutos);
 
-            HashSet<String> occupiedposicions = new HashSet<>();
+            HashSet<String> posicionesOcupadas = new HashSet<>();
         
             for (int i = 0; i < cantAutos; i++) {
                 int fila;
@@ -63,9 +73,9 @@ public class Auxiliar {
                     fila = random.nextInt(dimensiones);
                     columna = random.nextInt(dimensiones);
                     posicion = fila + "," + columna;
-                } while (occupiedposicions.contains(posicion));
+                } while (posicionesOcupadas.contains(posicion));
 
-                occupiedposicions.add(posicion);
+                posicionesOcupadas.add(posicion);
 
                 int color = random.nextInt(8) + 1;
                 int orientacion = random.nextInt(4);
@@ -118,5 +128,52 @@ public class Auxiliar {
     public static int tirarMoneda() {
         Random random = new Random();
         return random.nextInt(2) + 1;
+    }
+
+    public static void printBienvenida() {
+        System.out.println(colorRojo + "              ____----------- _____");
+        System.out.println(" \\~~~~~~~~~~/~_--~~~------~~~~~     \\");
+        System.out.println("  `---`\\  _-~      |                   \\");
+        System.out.println("    _-~  <_         |                     \\[]");
+        System.out.println("  / ___     ~~--[\"\"\"\"\"\"\" |      ________-------'_");
+        System.out.println(" > /~` \\    |-.   `\\~~.~~~~~                _ ~ - _");
+        System.out.println("  ~|  ||\\%  |       |    ~  ._                ~ _   ~ ._");
+        System.out.println("    `_//|_%  \\      |          ~  .              ~-_   /\\");
+        System.out.println("           `--__     |    _-____  /\\               ~-_ \\/.");
+        System.out.println("                ~--_ /  ,/ -~-_ \\ \\/          _______---~/");
+        System.out.println("                    ~~-/._<   \\ \\`~~~~~~~~~~~~~     ##--~/");
+        System.out.println("                          \\    ) |`------##---~~~~-~  ) )");
+        System.out.println("                           ~-_/_/                  ~~ ~~~" + resetColor);
+
+        System.out.println("#####################################################");
+        System.out.println("#####################################################");
+        System.out.println("######### " + negrita + colorAzul + "BIENVENIDOS A AUTITOS CHOCADORES" + resetColor + " ##########");
+        System.out.println("#####################################################");
+        System.out.println("#####################################################");
+        System.out.println();
+    }
+
+    public static void printDespedida() {
+        System.out.println("Gracias por jugar!");
+        System.out.println(colorAmarillo + "  ___");
+        System.out.println("    _-_-  _/\\______\\__");
+        System.out.println(" _-_-__  / ,-. -|-  ,-.`-.");
+        System.out.println("    _-_- `( o )----( o )-'");
+        System.out.println("           `-'      `-'" + resetColor);
+    }
+
+    public static void imprimirAutosConMovimientos(List<Auto> autos) {
+        for (int i = 0; i < autos.size(); i++) {
+            Auto car = autos.get(i);
+            int fila = car.getPosicion()[0][0];  // Get row
+            int columna = car.getPosicion()[0][1];  // Get column
+            char filaChar = (char) ('A' + fila);  // Convert row index to letter
+            String columnaStr = Integer.toString(columna + 1);  // Convert column index to 1-based number
+
+            System.out.println(
+                negrita + colorVerde + (i + 1) + ". " + resetColor + 
+                negrita + filaChar + columnaStr + resetColor
+            );
+        }
     }
 }
