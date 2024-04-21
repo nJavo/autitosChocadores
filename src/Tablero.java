@@ -4,7 +4,7 @@ public class Tablero {
     private int filas;
     private int columnas;
     private int cantidadAutos;
-    private String[][] matriz;
+    public String[][] matriz;
 
     public Tablero(int filas, int columnas, int cantidadAutos) {
         this.filas = filas;

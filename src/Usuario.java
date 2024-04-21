@@ -6,7 +6,7 @@ public class Usuario {
     private int edad;
     private String alias;
 
-    public Usuario(String nombre, int edad, String alias) {
+    public void setUsuario(String nombre, int edad, String alias) {
         this.nombre = nombre;
         this.edad = edad;
         this.alias = alias;
