@@ -72,6 +72,7 @@ public class Main {
             boolean gameOver = false;
 
             while (!gameOver) {
+                System.out.println();
                 System.out.println(negrita + "Es el turno de " + colorRojo + currentPlayer.getInfo().get(2) + resetColor);
                 System.out.println();
                 System.out.println(negrita + "Opciones:" + resetColor);
@@ -96,9 +97,11 @@ public class Main {
                     break;
                 }
 
-                if (userInput.equalsIgnoreCase("R")) {  // Change turn to the other player
-                    currentPlayer = (currentPlayer == jugador1) ? jugador2 : jugador1;  // Switch players
-                    continue;  // Continue to the next iteration
+                if (userInput.equalsIgnoreCase("R")) {
+                    tablero.rotarTablero90();
+                    tablero.mostrarTablero();
+                    currentPlayer = (currentPlayer == jugador1) ? jugador2 : jugador1;
+                    continue;
                 }
 
                 try {
