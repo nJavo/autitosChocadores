@@ -16,6 +16,40 @@ public class Tablero {
         inicializarTablero();
     }
 
+    public Tablero(Tablero original) {  // Para clonar
+        this.filas = original.filas;
+        this.columnas = original.columnas;
+        this.cantidadAutos = original.cantidadAutos;
+        this.matriz = new Auto[filas][columnas];
+        
+        Auto[][] matrizOriginal = original.matriz;
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                Auto originalAuto = matrizOriginal[i][j];
+                if (originalAuto != null) {
+                    Auto clonedAuto = new Auto(
+                        originalAuto.getColor(),
+                        originalAuto.getPosicion()[0][0],
+                        originalAuto.getPosicion()[0][1],
+                        originalAuto.getOrientacion(),
+                        originalAuto.getEstado()
+                    );
+                    matriz[i][j] = clonedAuto;
+                } else {
+                    matriz[i][j] = null;
+                }
+            }
+        }
+    }
+
+    public int getFilas() {
+        return filas;
+    }
+
+    public int getColumnas() {
+        return columnas;
+    }
+
     public Auto[][] getMatriz() {
         return matriz;
     }
@@ -68,7 +102,6 @@ public class Tablero {
         int filaActual = auto.getPosicion()[0][0];
         int columnaActual = auto.getPosicion()[0][1];
         int orientacionActual = auto.getOrientacion();
-
         if (nuevaOrientacion == orientacionActual) {
             return false;
         }
@@ -214,7 +247,6 @@ public class Tablero {
         if (fila < 0 || fila >= filas || columna < 0 || columna >= columnas) {
             throw new IllegalArgumentException("Coordenadas fuera de límites.");
         }
-
         Auto auto = matriz[fila][columna];
         if (auto == null) {
             throw new IllegalArgumentException("No hay auto en las coordenadas especificadas.");
@@ -230,7 +262,6 @@ public class Tablero {
         for (int i = 1; i <= 4; i++) {
             int nuevaOrientacion = (currentOrientation + i) % 4;
             if (esMovimientoValido(auto, nuevaOrientacion)) {
-                System.out.println("Moviendo auto en dirección " + nuevaOrientacion);
                 moverAuto(auto, nuevaOrientacion);
                 moveMade = true;
                 break;

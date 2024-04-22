@@ -40,6 +40,41 @@ public class Auxiliar {
         return tablero;
     }
 
+    public static Tablero tableroCompletamenteAlAzar() {
+        Random random = new Random();
+
+        int dimensiones = random.nextInt(3) + 5;
+        int cantAutos = random.nextInt(6) + 7;
+
+        Tablero tablero;
+        HashSet<String> posicionesOcupadas;
+
+        do {
+            tablero = new Tablero(dimensiones, dimensiones, cantAutos);
+            posicionesOcupadas = new HashSet<>();
+        
+            for (int i = 0; i < cantAutos; i++) {
+                int fila, columna;
+                String posicion;
+
+                do {
+                    fila = random.nextInt(dimensiones);
+                    columna = random.nextInt(dimensiones);
+                    posicion = fila + "," + columna;
+                } while (posicionesOcupadas.contains(posicion));
+
+                posicionesOcupadas.add(posicion);
+
+                int color = random.nextInt(8) + 1;
+                int orientacion = random.nextInt(4);
+
+                tablero.agregarAuto(color, fila, columna, orientacion, true);
+            }
+        } while (!tablero.hayMovimientoValido());
+
+        return tablero;
+    }
+
     public static Tablero tableroAlAzar(Tablero tablero) {
         Scanner scanner = new Scanner(System.in);
 
