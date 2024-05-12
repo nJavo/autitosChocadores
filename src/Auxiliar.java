@@ -65,7 +65,7 @@ public class Auxiliar {
 
                 posicionesOcupadas.add(posicion);
 
-                int color = random.nextInt(8) + 1;
+                int color = 0;
                 int orientacion = random.nextInt(4);
 
                 tablero.agregarAuto(color, fila, columna, orientacion, true);
@@ -112,7 +112,7 @@ public class Auxiliar {
 
                 posicionesOcupadas.add(posicion);
 
-                int color = random.nextInt(8) + 1;
+                int color = 0;
                 int orientacion = random.nextInt(4);
 
                 tablero.agregarAuto(color, fila, columna, orientacion, true);
@@ -125,13 +125,13 @@ public class Auxiliar {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
 
-        System.out.print("Ingrese las dimensiones del tablero (5, 6, o 7): ");
+        System.out.print(negrita + "\nIngrese las dimensiones del tablero (5, 6, o 7): " + resetColor);
         int dimensiones = scanner.nextInt();
         if (dimensiones < 5 || dimensiones > 7) {
             throw new IllegalArgumentException("Las dimensiones deben ser entre 5 y 7.");
         }
 
-        System.out.print("Ingrese la cantidad de autos (entre 3 y 12): ");
+        System.out.print(negrita + "Ingrese la cantidad de autos (entre 3 y 12): " + resetColor);
         int cantAutos = scanner.nextInt();
         if (cantAutos < 3 || cantAutos > 12) {
             throw new IllegalArgumentException("La cantidad de autos debe ser entre 3 y 12.");
@@ -140,7 +140,7 @@ public class Auxiliar {
         tablero = new Tablero(dimensiones, dimensiones, cantAutos);
 
         for (int i = 0; i < cantAutos; i++) {
-            System.out.print("Ingrese las coordenadas y dirección del auto " + (i + 1) + " (ejemplo: A12): ");
+            System.out.print(negrita + "Ingrese las coordenadas y dirección del auto " + (i + 1) + " (ejemplo: A12): " + resetColor);
             String input = scanner.next();
 
             char filaChar = input.charAt(0);
@@ -148,7 +148,17 @@ public class Auxiliar {
             int direccion = Character.getNumericValue(input.charAt(2));
 
             int fila = filaChar - 'A';
-            int color = random.nextInt(8) + 1;
+            System.out.println(negrita + "Seleccione el color del auto:" + resetColor);
+            System.out.println(negrita + colorRojo + "1. " + resetColor + negrita + "Rojo\n" 
+                            + negrita + colorRojo + "2. " + resetColor + negrita + "Azul\n" 
+                            + negrita + colorRojo + "3. " + resetColor + negrita + "Verde\n"
+                            + negrita + colorRojo + "4. " + resetColor + negrita + "Amarillo\n"
+                            + negrita + colorRojo + "5. " + resetColor + negrita + "Violeta\n"
+                            + negrita + colorRojo + "6. " + resetColor + negrita + "Cyan");
+            int color = scanner.nextInt();
+            if (color < 1 || color > 6) {
+                throw new IllegalArgumentException("Número de color no válido. Debe ser entre 1 y 6.");
+            }
 
             tablero.agregarAuto(color, fila, columna - 1, direccion, true);
         }
