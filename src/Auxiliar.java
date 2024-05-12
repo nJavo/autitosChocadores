@@ -29,13 +29,13 @@ public class Auxiliar {
     public static Tablero tableroPredeterminado(Tablero tablero) {
         tablero = new Tablero(5, 5, 8);
 
-        tablero.agregarAuto(1, 0, 0, 2, true);
-        tablero.agregarAuto(1, 0, 1, 3, true);
-        tablero.agregarAuto(2, 0, 3, 2, true);
-        tablero.agregarAuto(3, 0, 4, 0, true);
-        tablero.agregarAuto(1, 3, 4, 2, true);
-        tablero.agregarAuto(1, 4, 0, 0, true);
-        tablero.agregarAuto(1, 4, 3, 1, true);
+        tablero.agregarAuto(6, 0, 0, 2, true);
+        tablero.agregarAuto(2, 0, 1, 3, true);
+        tablero.agregarAuto(5, 0, 3, 2, true);
+        tablero.agregarAuto(6, 0, 4, 0, true);
+        tablero.agregarAuto(2, 3, 4, 2, true);
+        tablero.agregarAuto(6, 4, 0, 0, true);
+        tablero.agregarAuto(2, 4, 3, 1, true);
         tablero.agregarAuto(3, 4, 4, 3, true);
         return tablero;
     }
