@@ -10,26 +10,34 @@ public class Test {
         int scoreCalculator = 0;
         int scoreRandom = 0;
         int n = 0;
-        while (n < 1000) {
+        boolean stillTrue = true;
+        int value = 1;
+        boolean isCalculatorTurn = false;
+        // for (int i = 0; i < 15; i++) {
+        //     n = 0;
+        //     scoreCalculator = 0;
+        while (true) {
             Tablero tableroTest = Auxiliar.tableroCompletamenteAlAzar();
             Maquina calculador = new Maquina();
+            Maquina calculadorMax = new Maquina();
             Maquina calculador2 = new Maquina();
-            boolean isCalculatorTurn = false;
+            isCalculatorTurn = !isCalculatorTurn;
             boolean gameOver = false;
 
             while (!gameOver) {
                 List<Auto> autosConMovimientos = tableroTest.obtenerAutosConMovimientosValidos();
                 for (Auto auto : autosConMovimientos) {
                 }
+                System.out.println("Calculadora max: " + calculadorMax.encontrarMejorMovimiento(tableroTest, Integer.MAX_VALUE) + "\n");
                 if (isCalculatorTurn) {
-                    String mejorMovimiento = calculador.encontrarMejorMovimiento(tableroTest, 7);
-                    System.out.println("Mejor movimiento: " + mejorMovimiento);
+                    String mejorMovimiento = calculador.encontrarMejorMovimiento(tableroTest, 5);
+                    System.out.println("Movimiento depth 5: " + mejorMovimiento + "\n \n");
                     tableroTest.hacerJugada(mejorMovimiento);
                 } else {
                     // Auto auto = autosConMovimientos.get(random.nextInt(autosConMovimientos.size()));
                     // String jugada = obtenerJugada(auto);
-                    // System.out.println("Jugada random: " + jugada);
-                    String jugada = calculador2.encontrarMejorMovimiento(tableroTest, 5);
+                    String jugada = calculador2.encontrarMejorMovimiento(tableroTest, 6);
+                    System.out.println("Movimiento depth 6: " + jugada + "\n \n");
                     tableroTest.hacerJugada(jugada);
                 }
 
@@ -45,10 +53,15 @@ public class Test {
                 }
             }
 
-            System.out.println(negrita + "Score Calculator: " + colorRojo + scoreCalculator + resetColor);
-            System.out.println(negrita + "Score Random: " + colorRojo + scoreRandom + resetColor);
+            System.out.println(negrita + "Score Calculator 1: " + colorRojo + scoreCalculator + resetColor);
+            System.out.println(negrita + "Score Calculator 2: " + colorRojo + scoreRandom + resetColor);
+            System.out.println();
             n++;
         }
+        //     System.out.println(value);
+        //     System.out.println(negrita + "Score Calculator: " + colorRojo + scoreCalculator + resetColor);            
+        //     value++;
+        // }
     }
 
     private static String obtenerJugada(Auto auto) {

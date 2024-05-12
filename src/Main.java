@@ -67,7 +67,8 @@ public class Main {
                 System.out.println(" - " + negrita + "1" + resetColor + ": Fácil");
                 System.out.println(" - " + negrita + "2" + resetColor + ": Medio");
                 System.out.println(" - " + negrita + "3" + resetColor + ": Difícil");
-                System.out.print(negrita + "Ingresa tu elección (1-3): " + resetColor);
+                System.out.println(" - " + negrita + "4" + resetColor + ": IMPOSIBLE");
+                System.out.print(negrita + "Ingresa tu elección (1-4): " + resetColor);
                 int dificultad = scanner.nextInt();
 
                 switch (dificultad) {
@@ -79,6 +80,9 @@ public class Main {
                         break;
                     case 3:
                         profundidadMax = 8; // Dificl
+                        break;
+                    case 4:
+                        profundidadMax = Integer.MAX_VALUE; // IMPOSIBLE
                         break;
                 }
 
@@ -112,7 +116,7 @@ public class Main {
 
             boolean gameOver = false;
             boolean modoBot = (gameMode == 2);
-            Usuario jugadorActual = (tirarMoneda == 1) ? jugador1 : (modoBot ? jugador1 : jugador2);
+            Usuario jugadorActual = (tirarMoneda == 1) ? jugador1 : (modoBot ? null : jugador2);
             Usuario ultimoJugador = null;
 
             while (!gameOver) {
@@ -151,7 +155,7 @@ public class Main {
                     if (jugada.equalsIgnoreCase("R")) {
                         tablero.rotarTablero90();
                         tablero.mostrarTablero();
-                        jugadorActual = (modoBot ? jugador1 : (jugadorActual == jugador1) ? jugador2 : jugador1);
+                        jugadorActual = modoBot ? null : (jugadorActual == jugador1 ? jugador2 : jugador1);
                         continue;
                     }
 
